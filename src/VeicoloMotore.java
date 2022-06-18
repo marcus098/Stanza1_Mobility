@@ -9,4 +9,7 @@ public class VeicoloMotore extends Veicolo {
         this.patenteGuida = patenteGuida;
     }
 
+    public String getPatenteGuida() {
+        return patenteGuida;
+    }
 }

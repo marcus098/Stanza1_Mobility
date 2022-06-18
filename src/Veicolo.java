@@ -1,6 +1,7 @@
 public class Veicolo {
     private String id, posizione;
     private double tariffa;
+
     //disponibilita intendo veicolo libero o occupato
     private boolean disponibilita;
 
@@ -8,6 +9,7 @@ public class Veicolo {
         this.id = id;
         this.posizione = posizione;
         this.tariffa = tariffa;
+        this.disponibilita = true;
         setTariffa(tariffa);
         /*if(tariffa > 0){
             this.tariffa = tariffa;
@@ -37,4 +39,25 @@ public class Veicolo {
             System.out.println("Importo negativo");
         }
     }
+
+    public boolean isDisponibilita() {
+        return disponibilita;
+    }
+
+    public double getTariffa() {
+        return tariffa;
+    }
+
+    public String getPosizione() {
+        return posizione;
+    }
+
+    public String getId() {
+        return id;
+    }
+    public boolean checkUtente(Utente utente){
+        return true;
+    }
+    //Fare controllo del check saldo!
+
 }
