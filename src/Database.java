@@ -37,7 +37,7 @@ public class Database {
         nome[count] = new Utente(name, cognome, dataNascita, codiceFiscale, patenteGuida);
     }
 
-    private static void checkVeicolo() {
+    public static void checkVeicolo() {
         for (int i = 0; i < veicolo.length; i++) {
             if (veicolo[i].isDisponibilita()) {
                 System.out.println(veicolo[i]);
@@ -51,9 +51,12 @@ public class Database {
         System.out.println("Inserisci id veicolo: ");
         String idVeicolo = input.nextLine();
         for (int i = 0; i < veicolo.length; i++) {
-            if (veicolo[i].getId().equals(idVeicolo) && veicolo[i].isDisponibilita()) {
+            if (veicolo[i].getId().equals(idVeicolo) && veicolo[i].isDisponibilita() && utente.getCredito() > veicolo[i].getTariffa() * 5) {
                 System.out.println("Hai scelto : " + veicolo[i]);
-                veicolo[i].setDisponibilita(!veicolo[i].checkUtente(utente));
+                if (veicolo[i].checkUtente(utente)) {
+                    veicolo[i].setDisponibilita(false);
+                }
+                break;
                 //i metodi all'interno delle classi ritornano true, quindi nego il ritorno
             }
         }
