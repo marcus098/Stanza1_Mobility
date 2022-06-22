@@ -2,26 +2,27 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class Utente {
-    private String nome, cognome, dataNascita, codiceFiscale, patenteGuida, idUtente;
+    private String nome, cognome, dataNascita, codiceFiscale, idUtente;
     private boolean casco;
     private double credito;
-
+    private PatentiGuida patente;
     private Veicolo veicolo;
 
-    public Utente(String nome, String cognome, String dataNascita, String codiceFiscale, String patenteGuida) {
+    // Costruttore
+    public Utente(String nome, String cognome, String dataNascita, String codiceFiscale, PatentiGuida patente) {
         this.nome = nome;
         this.cognome = cognome;
         this.dataNascita = dataNascita;
         this.codiceFiscale = codiceFiscale;
-        this.patenteGuida = patenteGuida;
+        this.patente = patente;
         idUtente = Database.count + " ";
         Database.count++;
         this.veicolo = null;
     }
 
     //SETTER
-    public void setPatenteGuida(String patenteGuida) {
-        this.patenteGuida = patenteGuida;
+    public void setPatenteGuida(PatentiGuida patente) {
+        this.patente = patente;
     }
 
     public void setCasco(boolean casco) {
@@ -34,10 +35,36 @@ public class Utente {
         System.out.println("Credito non sufficiente per proseguire");
     }
 
+    public void setVeicolo(Veicolo veicolo) {
+        this.veicolo = veicolo;
+    }
 
+    //GETTER
+    public PatentiGuida getPatenteGuida() {
+        return patente;
+    }
+    public double getCredito() {
+        return credito;
+    }
+    public String getIdUtente() {
+
+        return idUtente;
+    }
+    public String getCodiceFiscale() {
+        return codiceFiscale;
+    }
+
+    public boolean isCasco() {
+        return casco;
+    }
+    public Veicolo getVeicolo() {
+        return veicolo;
+    }
+
+    // Metodi
     public void restituzioneVeicolo() {
         LocalDateTime ora = LocalDateTime.now();
-        LocalDateTime fiveMinutesLater = LocalDateTime.now().plusMinutes(60);
+        LocalDateTime fiveMinutesLater = LocalDateTime.now();
         long time[] = getTime(ora, fiveMinutesLater);
         long minuti = time[0] * 60 + time[1];
         if (minuti < 5) {
@@ -47,9 +74,8 @@ public class Utente {
         }
         veicolo.setDisponibilita(true);
         veicolo = null;
-
     }
-
+    // Calcola il tempo del noleggio ore e minuti
     private long[] getTime(LocalDateTime dob, LocalDateTime now) {
         final int MINUTES_PER_HOUR = 60;
         final int SECONDS_PER_MINUTE = 60;
@@ -63,33 +89,10 @@ public class Utente {
         long minutes = ((seconds % SECONDS_PER_HOUR) / SECONDS_PER_MINUTE);
         return new long[]{hours, minutes};
     }
-
-    //GETTER
-    public String getPatenteGuida() {
-        return patenteGuida;
-    }
-
-    public double getCredito() {
-        return credito;
-    }
-
-    public String getIdUtente() {
-
-        return idUtente;
-    }
-
-    public String getCodiceFiscale() {
-        return codiceFiscale;
-    }
-
-    public boolean isCasco() {
-        return casco;
-    }
-
     @Override
     public String toString() {
         return " Utente{" +
-                " patenteGuida='" + patenteGuida + '\'' +
+                " patenteGuida='" + patente + '\'' +
                 ", idUtente='" + idUtente + '\'' +
                 ", casco=" + casco +
                 ", credito=" + credito +
